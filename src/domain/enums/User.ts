@@ -1,0 +1,4 @@
+export const UserTypes = {
+  ADMINISTRATOR: 'ADMINISTRATOR',
+  CUSTOMER: 'CUSTOMER',
+}
