@@ -1,4 +1,4 @@
-import { getProductById } from '@/actions/users/get-user-by-id'
+import { getProductById } from '@/actions/products/get-product-id'
 import { UpdateProductForm } from './update-form'
 
 interface UpdateProductProps {
@@ -8,8 +8,8 @@ interface UpdateProductProps {
 }
 
 export default async function UpdateProduct({ params }: UpdateProductProps) {
-  const { user } = await getProductById({
-    userId: params.id,
+  const { product } = await getProductById({
+    productId: params.id,
   })
 
   return (
@@ -17,7 +17,7 @@ export default async function UpdateProduct({ params }: UpdateProductProps) {
       <div className="flex items-center justify-between rounded-xl bg-zinc-800 p-4">
         <p className="text-2xl font-bold">Edição do usuário</p>
       </div>
-      {user && <UpdateProductForm user={user} />}
+      {product && <UpdateProductForm product={product} />}
     </div>
   )
 }
