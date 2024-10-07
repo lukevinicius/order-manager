@@ -26,8 +26,6 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Order Order[]
-
   @@map("users")
 }
 
@@ -39,36 +37,34 @@ model Product {
   price       Int
   status      Boolean  @default(true)
   updatedAt   DateTime @updatedAt @map("updated_at")
-
-  Order   Order?  @relation(fields: [orderId], references: [id])
-  orderId String? @db.ObjectId
+  Item        Item[]
 
   @@map("products")
 }
 
 model Order {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String    @map("user_id") @db.ObjectId
-  user      User      @relation(fields: [userId], references: [id])
-  products  Product[]
-  total     Int
-  status    String    @default("OPEN")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  Payment   Payment[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  client    String
+  total     Int      @default(0)
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  Item Item[]
 
   @@map("orders")
 }
 
-model Payment {
+model Item {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  reference String   @unique
-  method    String
+  productId String   @map("product_id") @db.ObjectId
   orderId   String   @map("order_id") @db.ObjectId
-  order     Order    @relation(fields: [orderId], references: [id])
-  status    String   @default("PENDING")
+  quantity  Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("payments")
+  product Product @relation(fields: [productId], references: [id])
+  order   Order   @relation(fields: [orderId], references: [id])
+
+  @@map("items")
 }

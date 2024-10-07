@@ -1,11 +1,5 @@
 import Link from 'next/link'
-import {
-  Barcode,
-  HandCoins,
-  ScrollText,
-  UserCog,
-  UsersRound,
-} from 'lucide-react'
+import { Barcode, ShoppingBasket, UserCog } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -42,19 +36,9 @@ export const Sidebar = ({ className }: Props) => {
           href="/back-office/products"
         />
         <SidebarItem
-          icon={<UsersRound />}
-          label="Meus Clientes"
-          href="/back-office/customers"
-        />
-        <SidebarItem
-          icon={<ScrollText />}
-          label="Contratos"
-          href="/back-office/contracts"
-        />
-        <SidebarItem
-          icon={<HandCoins />}
-          label="Pagamentos"
-          href="/back-office/payments"
+          icon={<ShoppingBasket />}
+          label="Meus pedidos"
+          href="/back-office/orders"
         />
       </div>
       {/* <div className="p-4">
