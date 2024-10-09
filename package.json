@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "bunx prisma generate && next build",
+    "build": "bunx prisma generate && bunx prisma db seed && next build",
     "start": "next start",
     "lint": "next lint"
   },
