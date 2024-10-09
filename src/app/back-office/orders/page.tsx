@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { CreateOrderDialog } from './create-order-dialog'
 import { ListOrders } from './list-orders'
 
@@ -8,7 +9,11 @@ export default function OrdersPage() {
         <p className="text-2xl font-bold">Pedidos</p>
         <CreateOrderDialog />
       </div>
-      <ListOrders />
+      <Suspense
+        fallback={<div className="text-center">Carregando pedidos</div>}
+      >
+        <ListOrders />
+      </Suspense>
     </div>
   )
 }
