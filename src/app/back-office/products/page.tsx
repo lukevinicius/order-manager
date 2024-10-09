@@ -3,7 +3,7 @@ import { ProductsDataTable } from './data-table'
 import { CreateButton } from '@/components/buttons/create-buttom'
 
 export default async function Products() {
-  const products = await fetchProducts()
+  const { products } = await fetchProducts()
 
   return (
     <div className="space-y-4 bg-zinc-900 text-zinc-50">

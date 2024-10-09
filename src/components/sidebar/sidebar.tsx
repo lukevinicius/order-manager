@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Barcode, ShoppingBasket, UserCog } from 'lucide-react'
+import { Barcode, ChartArea, ShoppingBasket, UserCog } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -26,9 +26,14 @@ export const Sidebar = ({ className }: Props) => {
 
       <div className="scrollbar-none flex flex-1 flex-col gap-y-2 overflow-auto">
         <SidebarItem
-          icon={<UserCog />}
-          label="Usuários do Sistema"
-          href="/back-office/users"
+          icon={<ShoppingBasket />}
+          label="Meus pedidos"
+          href="/back-office/orders"
+        />
+        <SidebarItem
+          icon={<ChartArea />}
+          label="Relatórios"
+          href="/back-office/reports"
         />
         <SidebarItem
           icon={<Barcode />}
@@ -36,9 +41,9 @@ export const Sidebar = ({ className }: Props) => {
           href="/back-office/products"
         />
         <SidebarItem
-          icon={<ShoppingBasket />}
-          label="Meus pedidos"
-          href="/back-office/orders"
+          icon={<UserCog />}
+          label="Usuários do Sistema"
+          href="/back-office/users"
         />
       </div>
       {/* <div className="p-4">

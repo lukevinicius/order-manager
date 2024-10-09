@@ -8,6 +8,7 @@ export async function fetchOrders() {
       id: true,
       client: true,
       total: true,
+      status: true,
     },
   })
 

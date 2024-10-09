@@ -2,7 +2,6 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 interface IRequest {
   name: string
@@ -28,8 +27,6 @@ export async function createProduct({
     })
 
     revalidatePath('/back-office/products')
-
-    redirect('/back-office/products')
   } catch (error) {
     console.error(error)
 
@@ -37,4 +34,6 @@ export async function createProduct({
       error: 'Erro ao criar produto',
     }
   }
+
+  return {}
 }

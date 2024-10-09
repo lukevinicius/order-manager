@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -20,6 +21,7 @@ type FormProps = z.infer<typeof FormSchema>
 
 export function CreateProductForm() {
   const { toast } = useToast()
+  const router = useRouter()
 
   const FormHook = useForm<FormProps>({
     resolver: zodResolver(FormSchema),
@@ -49,6 +51,8 @@ export function CreateProductForm() {
       toast({
         title: 'Produto criado com sucesso',
       })
+
+      router.back()
     }
   }
 

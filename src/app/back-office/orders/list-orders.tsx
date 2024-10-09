@@ -1,40 +1,37 @@
 import { fetchOrders } from '@/actions/orders/fetch-orders'
-import { Button } from '@/components/ui/button'
+import { UpdateOrderDialog } from '@/components/dialogs/update-order-dialog'
 
 export async function ListOrders() {
   const { orders } = await fetchOrders()
-  const total = 1000
 
   return (
-    <div className="grid grid-cols-3 gap-2 rounded-xl bg-zinc-800 p-4">
+    <div className="grid w-full gap-2 rounded-xl bg-zinc-800 p-4 md:grid-cols-3">
       {orders.map((order) => (
-        <div key={order.id} className="space-y-2 rounded-xl bg-zinc-700 p-4">
-          <div className="flex justify-between">
-            <p>Cliente: Lucas</p>
-          </div>
+        <div
+          key={order.id}
+          className="w-full space-y-2 rounded-xl bg-zinc-700 p-4"
+        >
+          <p>Cliente: {order.client}</p>
+          <p>
+            Status:{' '}
+            <span
+              className={`font-semibold ${
+                order.status === 'OPEN' ? 'text-green-500' : 'text-red-500'
+              }`}
+            >
+              {order.status}
+            </span>
+          </p>
           <p className="font-semibold">
             Total:{' '}
-            {total.toLocaleString('pt-BR', {
+            {order.total.toLocaleString('pt-BR', {
               style: 'currency',
               currency: 'BRL',
             })}
           </p>
-          <Button className="mt-2 w-full">Detalhes</Button>
+          <UpdateOrderDialog orderId={order.id} />
         </div>
       ))}
-      <div className="space-y-2 rounded-xl bg-zinc-700 p-4">
-        <div className="flex justify-between">
-          <p>Cliente: Lucas</p>
-        </div>
-        <p className="font-semibold">
-          Total:{' '}
-          {total.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
-        </p>
-        <Button className="mt-2 w-full">Detalhes</Button>
-      </div>
     </div>
   )
 }
