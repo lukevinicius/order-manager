@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Minus, Plus } from 'lucide-react'
 import { addProductInOrder } from '@/actions/orders/add-item-in-order'
 import { updateItem } from '@/actions/orders/update-item'
+import { OrderStatus } from '@/domain/enums/Order'
 
 interface UpdateOrderFormProps {
   order: {
@@ -66,7 +67,9 @@ export function UpdateOrderForm({ order, products }: UpdateOrderFormProps) {
           Status:{' '}
           <span
             className={`font-semibold ${
-              order.status === 'OPEN' ? 'text-green-500' : 'text-red-500'
+              order.status === OrderStatus.OPEN
+                ? 'text-green-500'
+                : 'text-red-500'
             }`}
           >
             {order.status}
