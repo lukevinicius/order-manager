@@ -13,8 +13,15 @@ export async function fetchOrders() {
     },
   })
 
-  const openOrders = orders.filter((order) => order.status === OrderStatus.OPEN)
-  const closedOrders = orders.filter(
+  const ordersMapped = orders.map((order) => ({
+    ...order,
+    total: order.total / 100,
+  }))
+
+  const openOrders = ordersMapped.filter(
+    (order) => order.status === OrderStatus.OPEN,
+  )
+  const closedOrders = ordersMapped.filter(
     (order) => order.status === OrderStatus.CLOSED,
   )
 

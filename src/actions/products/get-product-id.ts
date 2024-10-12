@@ -23,7 +23,12 @@ export async function getProductById({ productId }: IRequest) {
       return { error: 'Produto não encontrado' }
     }
 
-    return { product }
+    return {
+      product: {
+        ...product,
+        price: product.price / 100,
+      },
+    }
   } catch (error) {
     console.error(error)
     return { error: 'Erro ao localizar produto' }

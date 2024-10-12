@@ -32,7 +32,21 @@ export async function getOrderById({ orderId }: IRequest) {
     },
   })
 
+  if (!order) {
+    return { error: 'Pedido não encontrado' }
+  }
+
   return {
-    order,
+    order: {
+      ...order,
+      total: order.total / 100,
+      Item: order.Item.map((item) => ({
+        ...item,
+        product: {
+          ...item.product,
+          price: item.product.price / 100,
+        },
+      })),
+    },
   }
 }

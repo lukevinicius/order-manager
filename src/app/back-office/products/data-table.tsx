@@ -7,8 +7,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 // import { DeleteProductButton } from './delete-product-buttom'
-import { EditButton } from '@/components/buttons/edit-buttom'
 import { IProduct } from '@/domain/interfaces/IProduct'
+import { UpdateProductDialog } from '@/components/dialogs/update-product-dialog'
 
 interface ProductDataTableProps {
   products: IProduct[]
@@ -37,7 +37,7 @@ export function ProductsDataTable({ products }: ProductDataTableProps) {
             </TableCell>
             <TableCell className="text-center">{product.status}</TableCell>
             <TableCell className="flex space-x-2">
-              <EditButton href={`/back-office/products/update/${product.id}`} />
+              <UpdateProductDialog productId={product.id} />
               {/* <DeleteProductButton productId={product.id} /> */}
             </TableCell>
           </TableRow>
