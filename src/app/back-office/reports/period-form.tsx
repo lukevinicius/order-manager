@@ -3,7 +3,7 @@
 import { salesByPeriod } from '@/actions/reports/sales-by-period'
 import { formatPeriodToDate } from '@/utils/formatPeriodToDate'
 import { MainReport } from './main-report'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 
 export function PeriodForm() {
   const [report, setReport] = useState({
@@ -11,12 +11,16 @@ export function PeriodForm() {
     openSales: 0,
   })
 
+  const [isPending, startTransition] = useTransition()
+
   async function onChangePeriod(period: string) {
     const { startDate, endDate } = formatPeriodToDate(period)
 
-    const { sales, openSales } = await salesByPeriod(startDate, endDate)
+    startTransition(async () => {
+      const { sales, openSales } = await salesByPeriod(startDate, endDate)
 
-    if (sales && openSales) setReport({ sales, openSales })
+      if (sales && openSales) setReport({ sales, openSales })
+    })
   }
 
   return (
@@ -36,7 +40,11 @@ export function PeriodForm() {
           <option value="last-3-months">Ultimos 3 meses</option>
         </select>
       </div>
-      <MainReport openSales={report.openSales} sales={report.sales} />
+      <MainReport
+        openSales={report.openSales}
+        sales={report.sales}
+        loading={isPending}
+      />
     </>
   )
 }
