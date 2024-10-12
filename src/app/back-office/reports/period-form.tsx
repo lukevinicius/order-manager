@@ -19,7 +19,7 @@ export function PeriodForm() {
     startTransition(async () => {
       const { sales, openSales } = await salesByPeriod(startDate, endDate)
 
-      if (sales && openSales) setReport({ sales, openSales })
+      setReport({ sales: sales || 0, openSales: openSales || 0 })
     })
   }
 

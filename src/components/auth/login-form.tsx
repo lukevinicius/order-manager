@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { FormError } from '@/components/form/form-error'
 import { useToast } from '@/components/ui/use-toast'
 import { Form } from '../form'
+import { Label } from '@/components/ui/label'
 
 export function LoginForm() {
   const { replace } = useRouter()
@@ -41,7 +42,7 @@ export function LoginForm() {
             description: 'Você está logado com sucesso.',
             duration: 3000,
           })
-          replace('/back-office/users')
+          replace('/back-office/orders')
         }
       })
     })
@@ -53,7 +54,9 @@ export function LoginForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <Form.Field>
-              <Form.Label htmlFor="username">Username</Form.Label>
+              <Label htmlFor="username" className="text-zinc-800">
+                Username
+              </Label>
               <Form.Input
                 name="username"
                 disabled={isPending}
@@ -62,7 +65,9 @@ export function LoginForm() {
               <Form.ErrorMessage field="username" />
             </Form.Field>
             <Form.Field>
-              <Form.Label htmlFor="password">Password</Form.Label>
+              <Label htmlFor="password" className="text-zinc-800">
+                Password
+              </Label>
               <Form.Input
                 name="password"
                 type="password"
