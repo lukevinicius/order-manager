@@ -4,12 +4,15 @@ import { salesByPeriod } from '@/actions/reports/sales-by-period'
 import { formatPeriodToDate } from '@/utils/formatPeriodToDate'
 import { MainReport } from './main-report'
 import { useState, useTransition } from 'react'
+import { BestSellingItems } from './best-selling-items'
+import { getBestSellingItems } from '@/actions/reports/get-best-selling-items'
 
 export function PeriodForm() {
   const [report, setReport] = useState({
     sales: 0,
     openSales: 0,
   })
+  const [bestSellingItems, setBestSellingItems] = useState([])
 
   const [isPending, startTransition] = useTransition()
 
@@ -18,8 +21,10 @@ export function PeriodForm() {
 
     startTransition(async () => {
       const { sales, openSales } = await salesByPeriod(startDate, endDate)
+      const { items } = await getBestSellingItems(startDate, endDate)
 
       setReport({ sales: sales || 0, openSales: openSales || 0 })
+      setBestSellingItems(items)
     })
   }
 
@@ -45,6 +50,9 @@ export function PeriodForm() {
         sales={report.sales}
         loading={isPending}
       />
+      <div className="grid md:grid-cols-2">
+        <BestSellingItems bestSellingItems={bestSellingItems} />
+      </div>
     </>
   )
 }

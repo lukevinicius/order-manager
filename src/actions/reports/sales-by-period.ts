@@ -31,7 +31,7 @@ export async function salesByPeriod(startDate: Date, endDate: Date) {
   })
 
   return {
-    sales: sales._sum.total,
-    openSales: openSales._sum.total,
+    sales: (sales._sum.total || 0) / 100,
+    openSales: (openSales._sum.total || 0) / 100,
   }
 }
