@@ -25,6 +25,18 @@ async function main() {
     phone: '',
   }
 
+  // verify if user already exists
+  const user = await prisma.user.findFirst({
+    where: {
+      email: SuperAdmin.email,
+    },
+  })
+
+  if (user) {
+    console.log('Super Admin already exists')
+    return
+  }
+
   await prisma.user
     .create({
       data: {
