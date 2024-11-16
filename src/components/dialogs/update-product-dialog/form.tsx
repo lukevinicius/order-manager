@@ -55,6 +55,7 @@ export function UpdateProductForm({ product }: IUpdateProductFormProps) {
             onChange={(e) => {
               e.target.value = normalizeCurrencyNumber(e.target.value)
             }}
+            defaultValue={normalizeCurrencyNumber(String(product.price * 100))}
           />
         </div>
       </div>
