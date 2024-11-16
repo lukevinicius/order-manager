@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Loader2 } from 'lucide-react'
 import { createProduct } from '@/actions/products/create-product'
-import { NumericFormat } from 'react-number-format'
+import { normalizeCurrencyNumber } from '@/utils/normalizeCurrency'
 
 export function CreateProductDialog() {
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -60,17 +60,14 @@ export function CreateProductDialog() {
               <Label htmlFor="name" className="text-right">
                 Preço
               </Label>
-              <NumericFormat
+              <Input
+                id="price"
                 name="price"
-                placeholder="Preço"
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-zinc-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                prefix="R$ "
-                decimalSeparator=","
-                decimalScale={2}
-                fixedDecimalScale
-                allowNegative={false}
-                thousandSeparator="."
-                allowLeadingZeros={false}
+                inputMode="numeric"
+                className="col-span-3 text-zinc-900"
+                onChange={(e) => {
+                  e.target.value = normalizeCurrencyNumber(e.target.value)
+                }}
               />
             </div>
           </div>
