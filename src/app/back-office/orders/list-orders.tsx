@@ -1,7 +1,7 @@
 import { fetchOrders } from '@/actions/orders/fetch-orders'
 import { UpdateOrderDialog } from '@/components/dialogs/update-order-dialog'
 import { CloseOrderButton } from './close-order-button'
-import { OrderStatus } from '@/domain/enums/Order'
+import { OrderStatus, OrderStatusNames } from '@/domain/enums/Order'
 
 export async function ListOrders() {
   const { closedOrders, openOrders } = await fetchOrders()
@@ -25,7 +25,11 @@ export async function ListOrders() {
                     : 'text-red-500'
                 }`}
               >
-                {order.status}
+                {
+                  OrderStatusNames[
+                    order.status as keyof typeof OrderStatusNames
+                  ]
+                }
               </span>
             </p>
             <p className="font-semibold">
@@ -60,7 +64,11 @@ export async function ListOrders() {
                     : 'text-red-500'
                 }`}
               >
-                {order.status}
+                {
+                  OrderStatusNames[
+                    order.status as keyof typeof OrderStatusNames
+                  ]
+                }
               </span>
             </p>
             <p className="font-semibold">

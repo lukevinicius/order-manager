@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Minus, Plus } from 'lucide-react'
 import { addProductInOrder } from '@/actions/orders/add-item-in-order'
 import { updateItem } from '@/actions/orders/update-item'
-import { OrderStatus } from '@/domain/enums/Order'
+import { OrderStatus, OrderStatusNames } from '@/domain/enums/Order'
 
 interface UpdateOrderFormProps {
   order: {
@@ -72,7 +72,7 @@ export function UpdateOrderForm({ order, products }: UpdateOrderFormProps) {
                 : 'text-red-500'
             }`}
           >
-            {order.status}
+            {OrderStatusNames[order.status as keyof typeof OrderStatusNames]}
           </span>
         </p>
       </div>
@@ -90,7 +90,7 @@ export function UpdateOrderForm({ order, products }: UpdateOrderFormProps) {
         </select>
         <Button
           className="bg-emerald-600 font-bold hover:bg-emerald-700"
-          disabled={isPending}
+          disabled={isPending || order.status !== OrderStatus.OPEN}
         >
           Adicionar item
         </Button>
@@ -110,7 +110,7 @@ export function UpdateOrderForm({ order, products }: UpdateOrderFormProps) {
                   onClick={() =>
                     handleUpdateItem(item.id, 'increment', item.quantity)
                   }
-                  disabled={isPending}
+                  disabled={isPending || order.status !== OrderStatus.OPEN}
                 >
                   <Plus />
                 </Button>
@@ -121,7 +121,7 @@ export function UpdateOrderForm({ order, products }: UpdateOrderFormProps) {
                   onClick={() =>
                     handleUpdateItem(item.id, 'decrement', item.quantity)
                   }
-                  disabled={isPending}
+                  disabled={isPending || order.status !== OrderStatus.OPEN}
                 >
                   <Minus />
                 </Button>
