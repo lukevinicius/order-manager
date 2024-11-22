@@ -112,7 +112,7 @@ export function UpdateUserForm({ user }: UpdateUserFormProps) {
             {isPending ? (
               <Loader2 className="h-6 w-6 animate-spin" />
             ) : (
-              'Atualizar User'
+              'Atualizar'
             )}
           </Button>
         </div>
